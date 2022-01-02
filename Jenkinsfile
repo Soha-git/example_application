@@ -2,13 +2,14 @@ pipeline {
     environment{
         DOCKER_IMAGE = "application-python:$BUILD_ID"
     }
-    agent any
+    agent{
+        docker{
+            image 'ubuntu:20.04'
+
     stages {
         stage('Build'){
-            agent{
-                docker{
-                    image 'ubuntu:20.04'
-                }
+            echo "build" 
+            }
             }
         }
         // stage('Test') {
