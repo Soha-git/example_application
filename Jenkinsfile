@@ -7,7 +7,7 @@ pipeline {
         stage('Build'){
             agent{
                 docker{
-                    "ubuntu:20.04"
+                    image 'ubuntu:20.04'
                 }
             }
         }
