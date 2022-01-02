@@ -9,6 +9,11 @@ pipeline {
                 docker{
                     image 'ubuntu:20.04'
                 }
+            steps{
+                script{
+                    echo "test"
+                }
+            }    
             }
         }
         // stage('Test') {
