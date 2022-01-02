@@ -18,5 +18,5 @@ pipeline {
         //     steps {
         //         sh 'curl -l http://localhost:5000'
         //     }
-    }
 }
+
