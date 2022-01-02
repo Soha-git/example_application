@@ -1,6 +1,6 @@
 pipeline {
     environment{
-        DOCKER_IMAGE = "application_py:$(env.BUID_ID)"
+        DOCKER_IMAGE = "application-python:$BUILD_ID"
     }
     agent any
     stages {
