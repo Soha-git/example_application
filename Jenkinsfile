@@ -6,16 +6,17 @@ pipeline {
     agent any
     stages {
         stage('Build'){
-            steps{
-            script{
-                dockerImage = docker.Build DOCKER_IMAGE
+            agent{
+                docker{
+                    "ubuntu:20.04"
+                }
             }
             }
         }
-        stage('Test') {
-            steps {
-                sh 'curl -l http://localhost:5000'
-            }
+        // stage('Test') {
+        //     steps {
+        //         sh 'curl -l http://localhost:5000'
+        //     }
         }
     }
 }
