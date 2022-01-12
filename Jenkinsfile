@@ -3,24 +3,19 @@ pipeline {
         DOCKER_IMAGE = "application-python:$BUILD_ID"
     }
     agent any
-    node {
-        checkout scm
+    stages {
+        stage('Build'){
+                node {
+                    checkout scm
 
-        def customImage = docker.build("application-python:${env.BUILD_ID}")
+                    def customImage = docker.build("application-python:${env.BUILD_ID}")
 
-    customImage.inside {
-        sh 'curl http://localhost:8080/'
-    }
-}
-    // stages {
-    //     stage('Build'){
-    //         agent{dockerfile true}
-                
-    //         steps{
-    //             sh "python3 --version"
-    //         }    
-    //         }
-    //     }
+                    customImage.inside {
+                        sh 'curl http://localhost:8080/'
+                    }
+                }  
+            }
+        }
         // stage('Test') {
         //     steps {
         //         sh 'curl -l http://localhost:5000'
