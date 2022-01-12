@@ -5,14 +5,12 @@ pipeline {
     agent any
     stages {
         stage('Build'){
-                node {
                     checkout scm
 
                     def customImage = docker.build("application-python:${env.BUILD_ID}")
 
                     customImage.inside {
                         sh 'curl http://localhost:8080/'
-                    }
                 }  
             }
         }
