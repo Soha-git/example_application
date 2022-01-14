@@ -13,7 +13,7 @@ pipeline {
         stage("Build"){
             steps{
                 script{
-                    docker.build( "ghcr.io/Soha-git/exampel_application:${env.BUILD_ID}")
+                    docker.build( "ghcr.io/soha-git/exampel_application:${env.BUILD_ID}")
             }
             }
             
