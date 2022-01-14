@@ -12,13 +12,14 @@ pipeline {
             flake8 src
         }
         }
-        stage('Build'){
+        // stage('Build'){
 
-            }
-        }
+        //     }
+        // }
         // stage('Test') {
         //     steps {
         //         sh 'curl -l http://localhost:5000'
         //     }
 }
 
+}
