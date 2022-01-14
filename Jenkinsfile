@@ -3,15 +3,19 @@ pipeline {
         DOCKER_IMAGE = "application-python:$BUILD_ID"
     }
     agent any
+
     stages {
+        stage('Syntax test'){
+        agent{ docker{image{"github/super-linter:latest"} }
+        steps{
+            hadolint Dockerfile
+            pylint src
+            flake8 src
+        }
+        }
+        }
         stage('Build'){
-                    checkout scm
 
-                    def customImage = docker.build("application-python:${env.BUILD_ID}")
-
-                    customImage.inside {
-                        sh 'curl http://localhost:8080/'
-                }  
             }
         }
         // stage('Test') {
