@@ -22,7 +22,7 @@ pipeline {
                 }
             }
 }
-        stage("Push docker image in registry ")
+        stage("Push docker image in registry "){
             steps{
                 script{
                     docker.withRegistry('https://ghcr.io', 'github-registry-token') {
