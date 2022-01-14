@@ -13,11 +13,9 @@ pipeline {
             
         }    
         stage('Test') {
-            agent{
-                docker{ image DOCKER_IMAGE}
-                }
             steps {
-                sh 'curl -l http://localhost:8080'
+                docker{ image DOCKER_IMAGE}.withRun('-p 5000:8080')
+                sh 'curl http://localhost:5000'
             }
 }
 
