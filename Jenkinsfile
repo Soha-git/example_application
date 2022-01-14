@@ -14,8 +14,10 @@ pipeline {
         }    
         stage('Test') {
             steps {
+                script{
                 docker{ image DOCKER_IMAGE}.withRun('-p 5000:8080')
                 sh 'curl http://localhost:5000'
+                }
             }
 }
 
