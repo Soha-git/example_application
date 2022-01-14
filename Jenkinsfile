@@ -4,15 +4,17 @@ pipeline {
     }
     agent any
     stages {
-        stage('Syntax test'){
+        stage("Syntax test"){
         agent{ docker { image "alpine/flake8:latest" } }
         steps{
             flake8 src
         }
         }
-        stage('Build'){
-            script{
-                docker.build( "ghcr.io/Soha-git/exampel_application:$BUILD_ID")
+        stage("Build"){
+            steps{
+                script{
+                    docker.build( "ghcr.io/Soha-git/exampel_application:$BUILD_ID")
+            }
             }
             
         }    
