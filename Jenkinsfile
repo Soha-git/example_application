@@ -4,12 +4,12 @@ pipeline {
     }
     agent any
     stages {
-        // stage("Syntax test"){
-        // agent{ docker { image "alpine/flake8:latest" } }
-        // steps{
-        //     flake8 src
-        // }
-        // }
+        stage("Syntax test"){
+        agent{ docker { image "alpine/flake8:latest" } }
+        steps{
+            flake8 src
+        }
+        }
         stage("Build"){
             steps{
                 script{
