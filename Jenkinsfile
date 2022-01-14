@@ -11,7 +11,10 @@ pipeline {
         }
         }
         stage('Build'){
-            docker.build( "ghcr.io/Soha-git/exampel_application:$BUILD_ID")
+            script{
+                docker.build( "ghcr.io/Soha-git/exampel_application:$BUILD_ID")
+            }
+            
         }    
         //     }
         // }
