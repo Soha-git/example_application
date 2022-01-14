@@ -1,23 +1,24 @@
 pipeline {
     environment{
-        DOCKER_IMAGE = "application-python:$BUILD_ID"
+        DOCKER_IMAGE = "ghcr.io/soha-git/exampel_application:${env.BUILD_ID}"
     }
     agent any
     stages {
         stage("Build"){
             steps{
                 script{
-                    docker.build( "ghcr.io/soha-git/exampel_application:${env.BUILD_ID}")
+                    docker.build(DOCKER_IMAGE)
             }
             }
             
         }    
-        //     }
-        // }
-        // stage('Test') {
-        //     steps {
-        //         sh 'curl -l http://localhost:5000'
-        //     }
+        stage('Test') {
+            agent{
+                docker{ image DOCKER_IMAGE}
+                }
+            steps {
+                sh 'curl -l http://localhost:8080'
+            }
 }
 
 }
