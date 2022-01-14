@@ -5,15 +5,14 @@ pipeline {
     agent any
     stages {
         stage('Syntax test'){
-        agent{ docker { image "github/super-linter:latest" } }
+        agent{ docker { image "alpine/flake8:latest" } }
         steps{
-            hadolint Dockerfile
-            pylint src
             flake8 src
         }
         }
-        // stage('Build'){
-
+        stage('Build'){
+            docker.build( "ghcr.io/Soha-git/exampel_application:$BUILD_ID")
+        }    
         //     }
         // }
         // stage('Test') {
