@@ -5,7 +5,7 @@ pipeline {
     agent any
     stages {
         stage("Syntax"){
-            agent {docker{ image 'python:3.9.9-alpine3.15'}}
+            agent {docker{ image 'python:3.9.9-alpine3.15'}.withRun('-u 1:1')}
             steps{
                     sh 'pip3 install -r ./src/requirements-test.txt'
                     args '-u 1:1'
