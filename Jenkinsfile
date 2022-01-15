@@ -1,6 +1,6 @@
 pipeline {
     environment{
-        DOCKER_IMAGE = "ghcr.io/soha-git/exampel_application:${env.BUILD_ID}"
+        DOCKER_IMAGE = "ghcr.io/soha-git/example_application:${env.BUILD_ID}"
     }
     agent any
     stages {
@@ -33,7 +33,7 @@ pipeline {
             }
             post{
                 failure{
-                    echo "Ops! build fail"
+                    echo "Ops! build failed"
                 }
             }
             
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script{
                     docker.image(DOCKER_IMAGE).withRun('-p 8000:8080'){
-                        sh 'sleep 10'
+                        sh 'sleep 5'
                         sh 'curl http://localhost:8000/'
                     }
                 }
