@@ -7,7 +7,7 @@ pipeline {
         stage("Syntax"){
             steps{
                 script{
-                    docker{ image 'python3.9:latest'}
+                    docker{ image 'python:3.9.9-alpine3.15'}
                     sh 'pip3 install -r ./src/requirements-test.txt'
                     sh 'flake8 ./src'
                 }
