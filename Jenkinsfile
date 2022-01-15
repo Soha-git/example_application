@@ -12,8 +12,9 @@ pipeline {
                 }
             steps{
                     sh 'pip3 install -r ./src/requirements-test.txt --upgrade pip'
-                    //args '-u 1:1'
                     sh 'flake8 src'
+                    sh 'isort --check --diff src'
+                    sh 'pylint src'
             }
         }
         stage("Build"){
