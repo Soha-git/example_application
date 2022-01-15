@@ -8,7 +8,7 @@ pipeline {
             //agent {docker{ image 'python:3.9.9-alpine3.15'}.withRun('-u 1:1')}
             steps{
                 script{
-                    docker{ image 'python:3.9.9-alpine3.15'}.withRun('-u 1:1'){
+                    docker.image ('python:3.9.9-alpine3.15').withRun('-u 1:1'){
                     sh 'pip3 install -r ./src/requirements-test.txt'
                     sh 'flake8 src'
                     }
