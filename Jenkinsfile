@@ -5,25 +5,25 @@ pipeline {
     agent any
     stages {
         stage("Syntax"){
-            agent {
-                docker{ 
-                    image 'python:3.9' 
-                    args '-u root' }
-                }
-            steps{
-                    sh 'pip3 install -r ./src/requirements-test.txt --upgrade pip'
-                    sh 'flake8 src'
-                    sh 'isort --check --diff src'
-                    sh 'pylint src'
+        agent {
+            docker{ 
+                image 'python:3.9' 
+                args '-u root' }
             }
-            post{
-                success{
-                    echo "Test passed successfully"
-                }
-                failure{
-                    echo "Ops! Failed test"
-                }
+        steps{
+            sh 'pip3 install -r ./src/requirements-test.txt --upgrade pip'
+            sh 'flake8 src'
+            sh 'isort --check --diff src'
+            sh 'pylint src'
+        }
+        post{
+            success{
+                echo "Test passed successfully"
             }
+            failure{
+                echo "Ops! Failed test"
+            }
+        }
         }
         stage("Build"){
             steps{
@@ -47,19 +47,40 @@ pipeline {
                     }
                 }
             }
-}
+        }
         stage("Push docker image in registry"){
             steps{
                 script{
                     docker.withRegistry('https://ghcr.io', 'github-registry-token') {
                     def myImage = docker.build(DOCKER_IMAGE)
                     myImage.push()
+                    }
+                }
+
+            }
+        }
+        stage("Staging deployment"){
+            agent{
+                label "staging"
+            }
+            steps{
+                script{
+                    docker.withRegistry('https://ghcr.io', 'github-registry-token') {
+                    sh "docker pull ${DOCKER_IMAGE}"
+                    sh "docker rm --force service"
+                    sh "docker run -d -p 8080:8080 --name service ${DOCKER_IMAGE}"
                 }
             }
-
-}
-}
-}
+        }
+        stage("Staging Test"){
+            agent{
+                label "staging"
+            }
+            steps{
+                sh 'curl http://localhost:8080/'
+            }
+        }
+    }
 
 
 
