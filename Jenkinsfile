@@ -7,7 +7,7 @@ pipeline {
         stage("Syntax"){
             agent {docker{ image 'python:3.9'}}
             steps{
-                    sh 'pip3 install -r ./src/requirements-test.txt'
+                    sh 'pip3 install -r ./src/requirements-test.txt --upgrade pip'
                     args '-u 1:1'
                     sh 'flake8 src'
             }
