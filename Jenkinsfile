@@ -16,12 +16,25 @@ pipeline {
                     sh 'isort --check --diff src'
                     sh 'pylint src'
             }
+            post{
+                success{
+                    echo "Test passed successfully"
+                }
+                failure{
+                    echo "Ops! Failed test"
+                }
+            }
         }
         stage("Build"){
             steps{
                 script{
                     docker.build(DOCKER_IMAGE)
             }
+            }
+            post{
+                failure{
+                    echo "Ops! build fail"
+                }
             }
             
         }    
@@ -35,7 +48,7 @@ pipeline {
                 }
             }
 }
-        stage("Push docker image in registry "){
+        stage("Push docker image in registry"){
             steps{
                 script{
                     docker.withRegistry('https://ghcr.io', 'github-registry-token') {
