@@ -5,10 +5,10 @@ pipeline {
     agent any
     stages {
         stage("Syntax"){
-            agent {docker{ image 'python:3.9'}}
+            agent {docker{ image 'python:3.9' args '-u root' }}
             steps{
                     sh 'pip3 install -r ./src/requirements-test.txt --upgrade pip'
-                    args '-u 1:1'
+                    //args '-u 1:1'
                     sh 'flake8 src'
             }
         }

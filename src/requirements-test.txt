@@ -1,3 +1,0 @@
-Isort
-flake8
-pylint
