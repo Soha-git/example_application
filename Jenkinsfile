@@ -5,12 +5,10 @@ pipeline {
     agent any
     stages {
         stage("Syntax"){
+            agent {docker{ image 'python:3.9.9-alpine3.15'}}
             steps{
-                script{
-                    docker{ image 'python:3.9.9-alpine3.15'}
                     sh 'pip3 install -r ./src/requirements-test.txt'
                     sh 'flake8 ./src'
-                }
             }
         }
         stage("Build"){
