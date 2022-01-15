@@ -69,9 +69,10 @@ pipeline {
                     sh "docker pull ${DOCKER_IMAGE}"
                     sh "docker rm --force service"
                     sh "docker run -d -p 8080:8080 --name service ${DOCKER_IMAGE}"
+                    }
                 }
             }
-        }
+        }    
         stage("Staging Test"){
             agent{
                 label "staging"
@@ -85,5 +86,4 @@ pipeline {
 
 
 
-    }
-}    
+}
