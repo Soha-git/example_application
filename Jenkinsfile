@@ -4,6 +4,15 @@ pipeline {
     }
     agent any
     stages {
+        stage("Syntax"){
+            steps{
+                script{
+                    docker.image("python3.9:latest")
+                    sh 'pip3 install -r ./src/requirements-test.txt'
+                    sh 'flake8 ./src'
+                }
+            }
+        }
         stage("Build"){
             steps{
                 script{
